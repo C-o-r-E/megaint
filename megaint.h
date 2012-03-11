@@ -3,14 +3,16 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <stdint.h>
+
 using namespace std;
 class megaint
-{
+{  
 		int val;
 		bool positive;
-		vector<unsigned int> * digits;
+		vector<uint8_t> * digits;
 	public:
-		megaint(const int x);
+		megaint(const long l);
 		megaint(const string & num);
 		~megaint();
 		megaint & operator+=(const megaint & rhs);

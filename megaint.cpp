@@ -2,13 +2,31 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
+#include <math.h>
 #include "megaint.h"
 using namespace std;
 
-megaint::megaint(const int x) {
-	digits = new vector<unsigned int>;
-	digits->push_back(abs(x));
-	positive = x >= 0;
+megaint::megaint(const long l) {
+	digits = new vector<uint8_t>;
+	
+
+	positive = l >= 0;
+
+	unsigned long ul = abs(l);
+
+	//for each power of 10
+	for(int i=9; i>=0; --i) // log(2^32) == 9 
+	{
+		unsigned long power = (unsigned long)pow(10, i);
+		//get digit
+		uint8_t d = ul/power;
+		cout << (int)d << endl;
+		
+		ul -= power * d;
+	}
+	cout << endl;
+//	digits->push_back(abs(x));
+	
 }
 
 megaint::megaint(const string & num) {
@@ -78,5 +96,14 @@ bool megaint::operator!=(const megaint & other) const {
 }
 
 ostream & operator<<(ostream & os, const megaint & mi) {
-	os << mi.val;
+	if(!mi.positive)
+		os << '-';
+
+	for(int i=0; i<mi.digits->size(); ++i)
+	{
+		
+		os << (unsigned int)mi.digits->at(i);
+	}
+	
+	return os;
 }

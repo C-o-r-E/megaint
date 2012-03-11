@@ -4,13 +4,20 @@
 using namespace std;
 
 int main() {
-	cout << "Testing some stuff." << endl;
+
+	cout << "Testing small integers." << endl;
 	megaint a(1);
 	cout << "1 =? " << a << endl;
 	megaint b(1);
 	assert(a == b);
 	megaint c(3);
 	assert(a != c);
+
+	cout << "Testing integers < 33 bit." << endl;
+
+	megaint d(65535);
+	megaint e(4294967295);
+//	megaint f(18446744073709551615);
 
 	assert(a*c == b*c);
 	assert(a*c/a == c);
