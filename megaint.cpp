@@ -20,12 +20,14 @@ megaint::megaint(const long l) {
 		unsigned long power = (unsigned long)pow(10, i);
 		//get digit
 		uint8_t d = ul/power;
-		cout << (int)d << endl;
-		
+//		cout << (int)d << endl;
+		if(d > 0)
+			digits->push_back(d);
+
 		ul -= power * d;
 	}
-	cout << endl;
-//	digits->push_back(abs(x));
+//	cout << endl;
+
 	
 }
 
@@ -91,8 +93,19 @@ bool megaint::operator==(const megaint & other) const {
 }
 
 bool megaint::operator!=(const megaint & other) const {
-	bool equals = *this == other;
-	return !equals;
+	//check sizes
+	if(digits->size() != other.digits->size())
+		return true;
+
+	//otherwise digit by digit comparison
+	for(int i=0; i<digits->size(); ++i)
+	{
+		if(digits->at(i) != other.digits->at(i))
+			return true;
+	}
+	//finally they must be equal
+	return false;
+
 }
 
 ostream & operator<<(ostream & os, const megaint & mi) {

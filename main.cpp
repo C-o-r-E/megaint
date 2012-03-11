@@ -19,6 +19,9 @@ int main() {
 	megaint e(4294967295);
 //	megaint f(18446744073709551615);
 
+	cout << "d = " << d << endl;
+	cout << "e = " << e << endl;
+
 	assert(a*c == b*c);
 	assert(a*c/a == c);
 
