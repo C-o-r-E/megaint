@@ -19,8 +19,21 @@ int main() {
 	megaint d(65535);
 	megaint e(-65535);
 
+	megaint f(0);
+
+	megaint g(2);
+
 	assert(d != e);
 	assert(d == d);
+
+	cout << "Testing addition and subtraction." << endl;
+
+	assert(a + b == g);
+	assert(f + g == g);
+	assert(d + e == f);
+	assert(a + a + a == c);
+	assert(a + a + b == c);
+
 
 //	megaint f(18446744073709551615);
 
