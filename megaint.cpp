@@ -238,6 +238,13 @@ bool megaint::operator!=(const megaint & other) const {
 
 }
 
+megaint::operator bool() const {
+	if(digits->size() == 1 && digits->at(0) == 0)
+		return false;
+
+	return true;
+}
+
 ostream & operator<<(ostream & os, const megaint & mi) {
 	if(!mi.positive)
 		os << '-';

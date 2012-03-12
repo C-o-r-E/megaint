@@ -27,6 +27,7 @@ class megaint
 		const megaint operator/(const megaint & rhs) const;
 		bool operator==(const megaint & other) const;
 		bool operator!=(const megaint & other) const;
+		operator bool() const;
 		friend ostream & operator<<(ostream & os, const megaint & mi);
 };
 
