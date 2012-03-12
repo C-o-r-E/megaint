@@ -12,6 +12,7 @@ class megaint
 		bool positive;
 		vector<uint8_t> * digits;
 	public:
+		megaint(const megaint & original);
 		megaint(const long l);
 		megaint(const string & num);
 		~megaint();

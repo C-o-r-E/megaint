@@ -6,27 +6,40 @@
 #include "megaint.h"
 using namespace std;
 
+megaint::megaint(const megaint & original)
+{
+	cout << "called copy constructor." << endl;
+	digits = new vector<uint8_t>;
+	
+	positive = original.positive;
+
+	for(int i=0; i<original.digits->size(); ++i)
+	{
+		digits->push_back(original.digits->at(i));
+	}
+}
+
 megaint::megaint(const long l) {
 	digits = new vector<uint8_t>;
 	
-
 	positive = l >= 0;
+	
+	long ul = abs(l);
 
-	unsigned long ul = abs(l);
-
+	cout << "constructing megaint from long (" << l << ")" << endl;
 	//for each power of 10
 	for(int i=9; i>=0; --i) // log(2^32) == 9 
 	{
 		unsigned long power = (unsigned long)pow(10, i);
 		//get digit
 		uint8_t d = ul/power;
-//		cout << (int)d << endl;
+		cout << (int)d << endl;
 		if(d > 0)
 			digits->push_back(d);
 
 		ul -= power * d;
 	}
-//	cout << endl;
+	cout << endl;
 
 	
 }
@@ -52,7 +65,8 @@ megaint & megaint::operator*=(const megaint & rhs) {
 }
 
 megaint & megaint::operator/=(const megaint & rhs) {
-	val /= rhs.val;
+	//val /= rhs.val;
+	//return this;
 }
 
 const megaint megaint::operator+(const megaint & rhs) const {

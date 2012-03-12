@@ -7,9 +7,6 @@
 #foo : $(objects)
 #	$(COMPILER) -o main $(objects)
 #
-#clean:
-#	rm -f *.o main
-
 
 CC=g++
 CFLAGS=-c -Wall -g
@@ -25,3 +22,6 @@ $(EXECUTABLE): $(OBJECTS)
 
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm -f *.o main

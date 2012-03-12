@@ -13,10 +13,15 @@ int main() {
 	megaint c(3);
 	assert(a != c);
 
+
 	cout << "Testing integers < 33 bit." << endl;
 
 	megaint d(65535);
-	megaint e(4294967295);
+	megaint e(-65535);
+
+	assert(d != e);
+	assert(d == d);
+
 //	megaint f(18446744073709551615);
 
 	cout << "d = " << d << endl;
