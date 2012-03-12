@@ -107,8 +107,25 @@ const megaint megaint::operator+(const megaint & rhs) const {
 	sum = 0;
 	vector<uint8_t>::reverse_iterator ilhs = digits->rbegin();
 	vector<uint8_t>::reverse_iterator irhs = rhs.digits->rbegin();
-	left = *ilhs;
-	right = *irhs;
+
+	if(ilhs == digits->rend())
+	{
+		left = 0;
+	}
+	else
+	{
+		left = *ilhs;
+	}
+
+	if(ilhs == rhs.digits->rend())
+	{
+		right = 0;
+	}
+	else
+	{
+		right = *irhs;
+	}
+
 	for(;;)
 	{
 		sum = 0;
