@@ -11,6 +11,7 @@ megaint::megaint()
 {
 	digits = new vector<uint8_t>;
 	digits->push_back(0);
+	positive = true;
 }
 
 megaint::megaint(const megaint & original)
@@ -182,6 +183,7 @@ const megaint megaint::operator+(const megaint & rhs) const {
 		result.digits->push_back(digiStack.top());
 		digiStack.pop();
 	}
+	cout << result << endl;
 	return result;
 }
 
