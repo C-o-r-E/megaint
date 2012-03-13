@@ -9,10 +9,11 @@ void test_subtraction();
 void test_mult();
 
 int main() {
-	//test_addition();
-	test_mult();
-	test_equality();
+	test_addition();
 	test_subtraction();
+	//test_mult();
+	//test_equality();
+	
 	return 0;
 }
 

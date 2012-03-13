@@ -8,11 +8,11 @@
 using namespace std;
 class megaint
 {
-		static const bool DEBUG=false;
+		static const bool DEBUG=true;
 		int val;
 		bool positive;
-		vector<uint8_t> * digits;
-		megaint(const vector<uint8_t> & digs, bool positive);
+		vector<bool> * digits;
+		//megaint(const vector<uint8_t> & digs, bool positive);
 	public:
 		megaint();
 		megaint(const megaint & original);
