@@ -158,7 +158,7 @@ megaint megaint::operator/=(const megaint & rhs) {
 	return result;
 }
 
-const megaint megaint::operator+(const megaint & rhs) const {
+megaint megaint::operator+(const megaint & rhs) const {
 	if (DEBUG) cout << *this << " + " << rhs << " = ";
 
 	/*insight:
@@ -267,13 +267,13 @@ const megaint megaint::operator+(const megaint & rhs) const {
 	return result;
 }
 
-const megaint megaint::operator-(const megaint & rhs) const {
+megaint megaint::operator-(const megaint & rhs) const {
 	megaint result = *this;
 	result -= rhs;
 	return result;
 }
 
-const megaint megaint::operator*(const megaint & rhs) const {
+megaint megaint::operator*(const megaint & rhs) const {
 	megaint accum(0);
 /*	stack<bool> result_digits;
 	stack<vector<bool>> result_digits_rows;
@@ -317,7 +317,7 @@ const megaint megaint::operator*(const megaint & rhs) const {
 
 }
 
-const megaint megaint::operator/(const megaint & rhs) const {
+megaint megaint::operator/(const megaint & rhs) const {
 	megaint result = *this;
 	result /= rhs;
 	return result;
@@ -367,6 +367,24 @@ bool megaint::operator!=(const megaint & other) const {
 	//finally they must be equal
 	return false;
 
+}
+
+//complement: invert all bits and add 1
+//depends on addition
+megaint megaint::operator~() const {
+	megaint result;
+
+	for(unsigned int i=0; i<digits->size(); ++i)
+	{
+		result.digits->push_back(!digits->at(i));
+	}
+
+	result.normalize();
+
+	megaint one(1);
+	result += 1;
+
+	return result;
 }
 
 megaint::operator bool() const {

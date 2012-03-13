@@ -25,13 +25,15 @@ class megaint
 		megaint operator-=(const megaint & rhs);
 		megaint operator*=(const megaint & rhs);
 		megaint operator/=(const megaint & rhs);
-		const megaint operator+(const megaint & rhs) const;
-		const megaint operator-(const megaint & rhs) const;
-		const megaint operator*(const megaint & rhs) const;
-		const megaint operator/(const megaint & rhs) const;
+		megaint operator+(const megaint & rhs) const;
+		megaint operator-(const megaint & rhs) const;
+		megaint operator*(const megaint & rhs) const;
+		megaint operator/(const megaint & rhs) const;
 		bool operator==(const megaint & other) const;
 		bool operator!=(const megaint & other) const;
+		megaint operator~() const;
 		operator bool() const;
+		
 		friend ostream & operator<<(ostream & os, const megaint & mi);
 };
 
