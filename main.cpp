@@ -51,7 +51,8 @@ void test_subtraction() {
 	megaint d(10);
 	megaint e(5);
 	assert(d - e == e);
-	assert(e - d == (c-e));
+	assert(d - c == d);
+
 }
 
 void test_mult() {

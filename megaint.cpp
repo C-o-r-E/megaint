@@ -267,9 +267,29 @@ megaint megaint::operator+(const megaint & rhs) const {
 	return result;
 }
 
+//subtraction
+//depends on addition
+//depends on bool()
 megaint megaint::operator-(const megaint & rhs) const {
-	megaint result = *this;
-	result -= rhs;
+	megaint result;
+
+	if(!rhs)
+	{
+		result = *this;
+		return result;
+	}
+
+	//first get the one's complement of the rhs
+	megaint rprime = ~rhs;
+	
+	//then add
+	result = *this + rprime;
+
+	//drop the leading one...
+	result.digits->erase(result.digits->begin());
+	
+	if(DEBUG) cout << *this << " - " << rhs << " = " << result << endl;
+
 	return result;
 }
 
