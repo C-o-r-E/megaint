@@ -17,10 +17,10 @@ class megaint
 		megaint(const long l);
 		megaint(const string & num);
 		~megaint();
-		megaint & operator+=(const megaint & rhs);
-		megaint & operator-=(const megaint & rhs);
-		megaint & operator*=(const megaint & rhs);
-		megaint & operator/=(const megaint & rhs);
+		megaint operator+=(const megaint & rhs);
+		megaint operator-=(const megaint & rhs);
+		megaint operator*=(const megaint & rhs);
+		megaint operator/=(const megaint & rhs);
 		const megaint operator+(const megaint & rhs) const;
 		const megaint operator-(const megaint & rhs) const;
 		const megaint operator*(const megaint & rhs) const;
