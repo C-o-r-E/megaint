@@ -53,6 +53,8 @@ megaint::megaint(const long l) {
 		cout << (int)d << endl;
 		if(d > 0)
 			digits->push_back(d);
+		else
+			digits->push_back(0);
 
 		ul -= power * d;
 	}
