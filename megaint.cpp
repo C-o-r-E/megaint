@@ -30,8 +30,14 @@ megaint::megaint(const megaint & original)
 megaint::megaint(const long l) {
 	cout << "constructing megaint from long (" << l << ")" << endl;
 	digits = new vector<uint8_t>;
-	
+
 	positive = l >= 0;
+
+	if(l == 0)
+	{
+		digits->push_back(0);
+		return;
+	}
 
 	if(!positive)
 		cout << "-" << endl;
@@ -64,25 +70,33 @@ megaint::~megaint() {
 }
 
 megaint & megaint::operator+=(const megaint & rhs) {
-	val += rhs.val;
+	megaint result;
+	return result;
 }
 
 megaint & megaint::operator-=(const megaint & rhs) {
-	val -= rhs.val;
+	megaint result;
+	return result;
 }
 
 megaint & megaint::operator*=(const megaint & rhs) {
-	val *= rhs.val;
+	megaint result;
+	return result;
 }
 
 megaint & megaint::operator/=(const megaint & rhs) {
-	//val /= rhs.val;
-	//return this;
+	megaint result;
+	return result;
 }
 
 const megaint megaint::operator+(const megaint & rhs) const {
 	cout << *this << " + " << rhs << " = ";
-	
+
+	/*insight:
+	  if we have a pos + pos : do the algorithm
+	  if we have a pos + neg  or neg + pos : call operator-(neg)
+	  if we have a neg + neg : add them and set positve = false;
+	*/
 	if(!positive)
 	{
 		//call operator-() ?
