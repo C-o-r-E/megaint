@@ -21,7 +21,7 @@ megaint::megaint(const megaint & original)
 	
 	positive = original.positive;
 
-	for(int i=0; i<original.digits->size(); ++i)
+	for(unsigned int i=0; i<original.digits->size(); ++i)
 	{
 		digits->push_back(original.digits->at(i));
 	}
@@ -69,22 +69,22 @@ megaint::~megaint() {
 	delete digits;
 }
 
-megaint & megaint::operator+=(const megaint & rhs) {
+megaint megaint::operator+=(const megaint & rhs) {
 	megaint result;
 	return result;
 }
 
-megaint & megaint::operator-=(const megaint & rhs) {
+megaint megaint::operator-=(const megaint & rhs) {
 	megaint result;
 	return result;
 }
 
-megaint & megaint::operator*=(const megaint & rhs) {
+megaint megaint::operator*=(const megaint & rhs) {
 	megaint result;
 	return result;
 }
 
-megaint & megaint::operator/=(const megaint & rhs) {
+megaint megaint::operator/=(const megaint & rhs) {
 	megaint result;
 	return result;
 }
@@ -104,19 +104,8 @@ const megaint megaint::operator+(const megaint & rhs) const {
 
 	stack<uint8_t> digiStack;
 	uint8_t sum, carry, left, right;
-	int len;
 	
 	//we need to go from lowest to highest
-	if(digits->size() < rhs.digits->size())
-	{
-		len = rhs.digits->size();
-	}
-	else
-	{
-		len = digits->size();
-	}
-
-
 	carry = 0;
 	sum = 0;
 	vector<uint8_t>::reverse_iterator ilhs = digits->rbegin();
@@ -239,7 +228,7 @@ const megaint megaint::operator/(const megaint & rhs) const {
 bool megaint::operator==(const megaint & other) const {
 	if ((positive == other.positive) &&
 		   (digits->size() == other.digits->size())) {
-		for (int i = 0; i < digits->size(); ++i) {
+		for (unsigned int i = 0; i < digits->size(); ++i) {
 			if (digits->at(i) != other.digits->at(i)) {
 				return false;
 			}
@@ -259,7 +248,7 @@ bool megaint::operator!=(const megaint & other) const {
 		return true;
 
 	//otherwise digit by digit comparison
-	for(int i=0; i<digits->size(); ++i)
+	for(unsigned int i=0; i<digits->size(); ++i)
 	{
 		if(digits->at(i) != other.digits->at(i))
 			return true;
@@ -280,7 +269,7 @@ ostream & operator<<(ostream & os, const megaint & mi) {
 	if(!mi.positive)
 		os << '-';
 
-	for(int i=0; i<mi.digits->size(); ++i)
+	for(unsigned int i=0; i<mi.digits->size(); ++i)
 	{
 		
 		os << (unsigned int)mi.digits->at(i);
