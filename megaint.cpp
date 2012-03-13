@@ -8,6 +8,32 @@
 #include <cstdio>
 using namespace std;
 
+void megaint::normalize()
+{
+	vector<bool> * tmp =  new vector<bool>;
+	for(unsigned int i=0; i<digits->size(); ++i)
+	{
+		//first time we find a 1
+		if(digits->at(i))
+		{
+			//copy all
+			for(unsigned int j=i; j<digits->size(); ++j)
+			{
+				tmp->push_back(digits->at(j));
+			}
+			break;
+		}
+	} 
+	
+	if(tmp->size() == 0)
+	{
+		tmp->push_back(0);
+	}
+	
+	delete digits;
+	digits = tmp;
+}
+
 megaint::megaint()
 {
 	digits = new vector<bool>;
@@ -61,7 +87,7 @@ megaint::megaint(const long l) {
 		bit = bit >> 1;
 	}
 
-	//TODO: normalize
+	normalize();
 
 	if(DEBUG) cout << "\t" << *this << endl;
 }

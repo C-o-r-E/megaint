@@ -23,16 +23,18 @@ void test_addition() {
 	megaint b(1);
 	megaint c(2);
 	assert(a + b == c);
+	assert(a == b);
 
+	megaint z(0);	
 	megaint d(65535);
-	megaint e(-65535);
-	megaint f(0);
-	assert(d != e);
-	assert(d + e == f);
-	assert(a + f == a);
-	assert(c + f == c);
-	assert(d + f == d);
-	assert(e + f == e);
+   
+	
+	assert(d != c);
+	assert(d + d == d + d);
+
+	assert(a + z == a);
+	assert(c + z == c);
+	assert(d + z == d);
 }
 
 void test_subtraction() {

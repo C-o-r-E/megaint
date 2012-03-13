@@ -13,6 +13,7 @@ class megaint
 		bool positive;
 		vector<bool> * digits;
 		//megaint(const vector<uint8_t> & digs, bool positive);
+		void normalize();
 	public:
 		megaint();
 		megaint(const megaint & original);
