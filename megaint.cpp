@@ -69,6 +69,12 @@ megaint::~megaint() {
 	delete digits;
 }
 
+megaint megaint::absoluteValue(){
+	megaint copy(*this);
+	copy.positive = true;
+	return copy;
+}
+
 megaint megaint::operator+=(const megaint & rhs) {
 	megaint result;
 	return result;
@@ -208,8 +214,112 @@ const megaint megaint::operator+(const megaint & rhs) const {
 }
 
 const megaint megaint::operator-(const megaint & rhs) const {
-	megaint result = *this;
-	result -= rhs;
+		cout << *this << " - " << rhs << " = ";
+
+	/*insight:
+	  if we have a pos - pos : do the algorithm
+	  if we have a pos - neg : call operator+(abs(pos))
+	  if we have a neg - neg : add them and set positve = false;
+	*/
+	if(!positive)
+	{
+		//call operator-() ?
+	}
+
+	stack<uint8_t> digiStack;
+	int8_t diff, borrow, left, right;
+	
+	//we need to go from lowest to highest
+	borrow = 0;
+	diff = 0;
+	vector<uint8_t>::reverse_iterator ilhs = digits->rbegin();
+	vector<uint8_t>::reverse_iterator irhs = rhs.digits->rbegin();
+
+	if(ilhs == digits->rend())
+	{
+		left = 0;
+	}
+	else
+	{
+		left = *ilhs;
+	}
+
+	if(ilhs == rhs.digits->rend())
+	{
+		right = 0;
+	}
+	else
+	{
+		right = *irhs;
+	}
+
+	for(;;)
+	{
+		diff = 0;
+		int8_t tmp;
+
+//		tmp = left - right - borrow;
+//gah i need to find a good algorithm!		
+
+		digiStack.push(sum);
+		//now try to increment the iterators
+		///////////////////////////LHS
+		if(ilhs == digits->rend())
+		{	
+			left = 0;
+		}
+		else 
+		{
+			++ilhs;
+			if(ilhs == digits->rend())//need to make the logic less retarded
+			{
+				left = 0;
+			}
+			else
+			{
+				left = *ilhs;
+			}
+		}
+
+		///////////////////////////RHS
+		if(irhs == rhs.digits->rend())
+		{	
+			right = 0;
+		}
+		else 
+		{
+			++irhs;
+			if(irhs == rhs.digits->rend())//need to make the logic less retarded
+			{
+				right = 0;
+			}
+			else
+			{
+				right = *irhs;
+			}
+		}
+
+
+		//exit condition
+		if(ilhs == digits->rend() && irhs == rhs.digits->rend())
+		{
+			if(carry > 0)
+				digiStack.push(1);
+			break;
+		}
+	}
+	
+	//now our result should be stored in that stack
+
+	megaint result;
+	delete result.digits;
+	result.digits = new vector<uint8_t>;
+	while(!digiStack.empty())
+	{
+		result.digits->push_back(digiStack.top());
+		digiStack.pop();
+	}
+	cout << result << endl;
 	return result;
 }
 
