@@ -79,6 +79,17 @@ megaint::megaint(const string & num) {
 	}
 }
 
+megaint & megaint::operator=(const megaint & rhs) {
+	// TODO I'm sure a more motivated person could remove a bunch of duplicate code here.
+	digits = new vector<uint8_t>;
+	for (vector<uint8_t>::const_iterator it = rhs.digits->begin();
+			it != rhs.digits->end();
+			++it) {
+		digits->push_back(*it);
+	}
+	positive = rhs.positive;
+}
+
 megaint::~megaint() {
 	delete digits;
 }
@@ -214,9 +225,11 @@ const megaint megaint::operator+(const megaint & rhs) const {
 	result.digits = new vector<uint8_t>;
 	while(!digiStack.empty())
 	{
-		result.digits->push_back(digiStack.top());
+		uint8_t t = digiStack.top();
+		result.digits->push_back(t);
 		digiStack.pop();
 	}
+	//cout << "Result" << result << endl;
 	if (DEBUG) cout << result << endl;
 	return result;
 }
@@ -230,13 +243,21 @@ const megaint megaint::operator-(const megaint & rhs) const {
 const megaint megaint::operator*(const megaint & rhs) const {
 	stack<uint8_t> result_digits;
 	stack<vector<uint8_t> > result_digits_rows;
-	megaint accum(0);
+	// Imagine these two iterators as going from smallest to lowest digit
+	// in each 'row', as you do by hand:
+	//     0000034    <- i
+	//     x   043    <- j
+	//     --------
 	vector<uint8_t>::reverse_iterator i = this->digits->rbegin();
 	vector<uint8_t>::reverse_iterator j = rhs.digits->rbegin();
+
+	// Cycle through the "bottom" digits
 	for (; j != rhs.digits->rend(); ++j) {
 		// TODO make this loop through both numbers (right now breaking after first digit)
 		int carry = 0;
-		int power = 1;
+		int power = 1; // TODO this should increase by a power of ten for each j
+
+		// Now cycle through the "top" digits
 		for (; i != this->digits->rend(); ++i) {
 			int result = carry + (*i) * (*j);
 			int thisdigit = result % 10;
@@ -259,10 +280,13 @@ const megaint megaint::operator*(const megaint & rhs) const {
 		result_digits_rows.push(result_digits_vec);
 		break; // FIXME see TODO above
 	}
+	megaint accum(0);
+	// Sum the resulting rows
 	while (result_digits_rows.size() != 0) {
 		vector<uint8_t> digs = result_digits_rows.top();
 		result_digits_rows.pop();
 		megaint new_row(digs, true);
+
 		accum = accum + new_row;
 	}
 	return accum;
@@ -273,6 +297,7 @@ const megaint megaint::operator/(const megaint & rhs) const {
 	result /= rhs;
 	return result;
 }
+
 
 bool megaint::operator==(const megaint & other) const {
 	vector<uint8_t>::const_iterator thisit = this->digits->begin();
