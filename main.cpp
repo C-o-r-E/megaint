@@ -31,10 +31,15 @@ void test_addition() {
 	
 	assert(d != c);
 	assert(d + d == d + d);
-
 	assert(a + z == a);
 	assert(c + z == c);
 	assert(d + z == d);
+
+	megaint g(3);
+	megaint h(5);
+	
+	g += c;
+	assert(g == h);
 }
 
 void test_subtraction() {

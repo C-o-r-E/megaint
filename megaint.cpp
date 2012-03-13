@@ -119,12 +119,27 @@ megaint::megaint(const string & num) {
 	}
 }
 
+megaint & megaint::operator=(const megaint & rhs) {
+	// TODO I'm sure a more motivated person could remove a bunch of duplicate code here.
+	digits = new vector<bool>;
+	for (vector<bool>::const_iterator it = rhs.digits->begin();
+			it != rhs.digits->end();
+			++it) {
+		digits->push_back(*it);
+	}
+	positive = rhs.positive;
+	return *this;
+}
+
 megaint::~megaint() {
 	delete digits;
 }
 
 megaint megaint::operator+=(const megaint & rhs) {
 	megaint result;
+	result = *this + rhs;
+	if(DEBUG) cout << *this << " += " << rhs << " = " << result << endl;
+	*this = result;
 	return result;
 }
 
@@ -309,6 +324,7 @@ const megaint megaint::operator/(const megaint & rhs) const {
 }
 
 bool megaint::operator==(const megaint & other) const {
+	if(DEBUG) cout << *this << " == " << other << endl;
 	vector<bool>::const_iterator thisit = this->digits->begin();
 	vector<bool>::const_iterator otherit = other.digits->begin();
 	if ((positive == other.positive)) {
