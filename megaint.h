@@ -7,10 +7,12 @@
 
 using namespace std;
 class megaint
-{  
+{
+		static const bool DEBUG=false;
 		int val;
 		bool positive;
 		vector<uint8_t> * digits;
+		megaint(const vector<uint8_t> & digs, bool positive);
 	public:
 		megaint();
 		megaint(const megaint & original);

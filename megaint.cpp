@@ -5,6 +5,7 @@
 #include <stack>
 #include <math.h>
 #include "megaint.h"
+#include <cstdio>
 using namespace std;
 
 megaint::megaint()
@@ -16,7 +17,7 @@ megaint::megaint()
 
 megaint::megaint(const megaint & original)
 {
-	cout << "called copy constructor." << endl;
+	if (DEBUG) cout << "called copy constructor." << endl;
 	digits = new vector<uint8_t>;
 	
 	positive = original.positive;
@@ -28,7 +29,7 @@ megaint::megaint(const megaint & original)
 }
 
 megaint::megaint(const long l) {
-	cout << "constructing megaint from long (" << l << ")" << endl;
+	if (DEBUG) cout << "constructing megaint from long (" << l << ")" << endl;
 	digits = new vector<uint8_t>;
 
 	positive = l >= 0;
@@ -40,7 +41,7 @@ megaint::megaint(const long l) {
 	}
 
 	if(!positive)
-		cout << "-" << endl;
+		if (DEBUG) cout << "-" << endl;
 	
 	long ul = abs(l);
 
@@ -50,7 +51,7 @@ megaint::megaint(const long l) {
 		unsigned long power = (unsigned long)pow(10, i);
 		//get digit
 		uint8_t d = ul/power;
-		cout << (int)d << endl;
+		if (DEBUG) cout << (int)d << endl;
 		if(d > 0)
 			digits->push_back(d);
 		else
@@ -58,13 +59,24 @@ megaint::megaint(const long l) {
 
 		ul -= power * d;
 	}
-	cout << endl;
+	if (DEBUG) cout << endl;
 
 	
 }
 
+megaint::megaint(const vector<uint8_t> & digs, bool positive)
+	: positive(positive) {
+	digits = new vector<uint8_t>;
+	for (vector<uint8_t>::const_iterator it = digs.begin(); it != digs.end(); ++it) {
+		digits->push_back(*it);
+	}
+}
+
 megaint::megaint(const string & num) {
-	val = atoi(num.c_str());
+	digits = new vector<uint8_t>;
+	for (int i = 0; i != num.size(); ++i) {
+		digits->push_back(num.at(i) - 0x30);
+	}
 }
 
 megaint::~megaint() {
@@ -83,7 +95,7 @@ megaint megaint::operator-=(const megaint & rhs) {
 
 megaint megaint::operator*=(const megaint & rhs) {
 	megaint result;
-	return result;
+	return *this;
 }
 
 megaint megaint::operator/=(const megaint & rhs) {
@@ -92,7 +104,7 @@ megaint megaint::operator/=(const megaint & rhs) {
 }
 
 const megaint megaint::operator+(const megaint & rhs) const {
-	cout << *this << " + " << rhs << " = ";
+	if (DEBUG) cout << *this << " + " << rhs << " = ";
 
 	/*insight:
 	  if we have a pos + pos : do the algorithm
@@ -205,7 +217,7 @@ const megaint megaint::operator+(const megaint & rhs) const {
 		result.digits->push_back(digiStack.top());
 		digiStack.pop();
 	}
-	cout << result << endl;
+	if (DEBUG) cout << result << endl;
 	return result;
 }
 
@@ -216,9 +228,44 @@ const megaint megaint::operator-(const megaint & rhs) const {
 }
 
 const megaint megaint::operator*(const megaint & rhs) const {
-	megaint result = *this;
-	result *= rhs;
-	return result;
+	stack<uint8_t> result_digits;
+	stack<vector<uint8_t> > result_digits_rows;
+	megaint accum(0);
+	vector<uint8_t>::reverse_iterator i = this->digits->rbegin();
+	vector<uint8_t>::reverse_iterator j = rhs.digits->rbegin();
+	for (; j != rhs.digits->rend(); ++j) {
+		// TODO make this loop through both numbers (right now breaking after first digit)
+		int carry = 0;
+		int power = 1;
+		for (; i != this->digits->rend(); ++i) {
+			int result = carry + (*i) * (*j);
+			int thisdigit = result % 10;
+			if (result >= 10) {
+				carry = result / 10;
+			}
+			else {
+				carry = 0;
+			}
+			result_digits.push(thisdigit);
+		}
+		if (carry) {
+			result_digits.push(carry);
+		}
+		vector<uint8_t> result_digits_vec;
+		while (result_digits.size() != 0) {
+			result_digits_vec.push_back(result_digits.top());
+			result_digits.pop();
+		}
+		result_digits_rows.push(result_digits_vec);
+		break; // FIXME see TODO above
+	}
+	while (result_digits_rows.size() != 0) {
+		vector<uint8_t> digs = result_digits_rows.top();
+		result_digits_rows.pop();
+		megaint new_row(digs, true);
+		accum = accum + new_row;
+	}
+	return accum;
 }
 
 const megaint megaint::operator/(const megaint & rhs) const {
@@ -228,16 +275,28 @@ const megaint megaint::operator/(const megaint & rhs) const {
 }
 
 bool megaint::operator==(const megaint & other) const {
-	if ((positive == other.positive) &&
-		   (digits->size() == other.digits->size())) {
-		for (unsigned int i = 0; i < digits->size(); ++i) {
-			if (digits->at(i) != other.digits->at(i)) {
+	vector<uint8_t>::const_iterator thisit = this->digits->begin();
+	vector<uint8_t>::const_iterator otherit = other.digits->begin();
+	if ((positive == other.positive)) {
+		while (thisit != this->digits->end() && *thisit == 0) {
+			++thisit;
+		}
+		while (otherit != other.digits->end() && *otherit == 0) {
+			++otherit;
+		}
+		while (thisit != this->digits->end() && otherit != other.digits->end()) {
+			if (*thisit != *otherit) {
 				return false;
 			}
+			++otherit;
+			++thisit;
 		}
-		return true;
+		return (thisit == this->digits->end()) && (otherit == other.digits->end());
+
 	}
-	return false;
+	else {
+		return false;
+	}
 }
 
 bool megaint::operator!=(const megaint & other) const {

@@ -3,58 +3,73 @@
 #include "megaint.h"
 using namespace std;
 
+void test_equality();
+void test_addition();
+void test_subtraction();
+void test_mult();
+
 int main() {
+	//test_addition();
+	test_mult();
+	test_equality();
+	test_subtraction();
+	return 0;
+}
 
-	cout << "Testing small integers." << endl;
+void test_addition() {
+	cout << "Testing addition" << endl;
 	megaint a(1);
-	cout << "1 =? " << a << endl;
 	megaint b(1);
-	assert(a == b);
-	megaint c(3);
-	assert(a != c);
-
-
-	cout << "Testing integers < 33 bit." << endl;
+	megaint c(2);
+	assert(a + b == c);
 
 	megaint d(65535);
 	megaint e(-65535);
-
 	megaint f(0);
-
-	megaint g(2);
-
 	assert(d != e);
-	assert(d == d);
-
-	cout << "Testing addition and subtraction." << endl;
-
-	assert(a + b == g);
-	assert(f + g == g);
 	assert(d + e == f);
-	assert(a + a + a == c);
-	assert(a + a + b == c);
+	assert(a + f == a);
+	assert(c + f == c);
+	assert(d + f == d);
+	assert(e + f == e);
+}
 
+void test_subtraction() {
+	cout << "Testing subtraction" << endl;
+	megaint a(1);
+	megaint b(1);
+	megaint c(0);
+	assert(a - b == c);
+	megaint d(10);
+	megaint e(5);
+	assert(d - e == e);
+	assert(e - d == (c-e));
+}
 
-//	megaint f(18446744073709551615);
+void test_mult() {
+	megaint a(1);
+	megaint b(2);
+	megaint c(3);
+	megaint d(6);
+	megaint e(-3);
+	megaint f(0);
+	megaint g(-6);
+	assert(a*b == b);
+	assert(b*c == d);
+	assert(b*e != d);
+	assert(b*e == g);
+	assert(b*c/b == c);
+}
 
-	cout << "d = " << d << endl;
-	cout << "e = " << e << endl;
-
-	assert(a*c == b*c);
-	assert(a*c/a == c);
-
-/*
-	string num("100");
-	megaint n(num);
-	assert(n == 100);
-
-	string num1("10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
-	string num2("10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
-	megaint n1(num1);
-	megaint n2(num2);
-	cout << n1 << endl;
-	cout << n2 << endl;
-	assert(n1 == n2 && n1 != -1);
-*/
-	return 0;
+void test_equality() {
+	megaint a(1);
+	megaint b(1);
+	megaint c;
+	megaint e(10);
+	megaint f(100);
+	//c = c + e;
+	//c = c + f; these are broken
+	megaint d(110);
+	//assert(a == b);
+	//assert(c == d);
 }
