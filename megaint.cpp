@@ -290,11 +290,9 @@ megaint megaint::operator-(const megaint & rhs) const {
 	  need to make sure that for the complement we have 
 	  a zero padding so the vector sizes are the same.
 	*/
-	cout << "\t ds" << digits->size() << " rhs" << rhs.digits->size() << endl;
 	if(digits->size() > rhs.digits->size())
 	{
 		long diff = digits->size() - rhs.digits->size();
-		cout << "\tdiff=" << diff << endl;
 		for(long i=1; i<diff; ++i)//start at one since tmp has a 0 already
 		{
 			tmp.digits->push_back(0);
@@ -355,10 +353,8 @@ megaint megaint::operator*(const megaint & rhs) const {
 
 	while(tmp)
 	{
-		cout << "tmp0:" << tmp << endl;
 		result.digits->push_back(0);
 		tmp -= 2;
-		cout << "tmp1:" << tmp << endl;
 	}
 
 	if(rhs.isEven() == false)
