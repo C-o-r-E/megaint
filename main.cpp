@@ -21,6 +21,7 @@ int main() {
 
 // *=, -=, +=, /=
 void test_x_equals_ops() {
+	cout << "test_x_equals_ops()" << endl;
 	megaint a(34234);
 	long bla = 34234 + 343;
 	megaint b(bla);
@@ -34,6 +35,17 @@ void test_x_equals_ops() {
 	d += 1;
 	megaint e(1);
 	assert(d == e);
+
+	a -= c;
+	assert(a != b);
+	assert(a == (b - c));
+
+	megaint k(2);
+	megaint j(-3);
+	megaint n(-6);
+	assert(k*j == n);
+	k *= j;
+	assert(k == n);
 }
 
 void test_addition() {
@@ -75,6 +87,7 @@ void test_subtraction() {
 }
 
 void test_mult() {
+	cout << "test_mult()" << endl;
 	megaint a(1);
 	megaint b(2);
 	megaint c(3);
@@ -89,6 +102,7 @@ void test_mult() {
 }
 
 void test_division() {
+	cout << "test_division()" << endl;
 	megaint a(1);
 	megaint b(1);
 	megaint c;

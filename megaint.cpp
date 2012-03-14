@@ -157,11 +157,15 @@ megaint megaint::operator-=(const megaint & rhs) {
 
 megaint megaint::operator*=(const megaint & rhs) {
 	megaint result;
-	return *this;
+	result = *this * rhs;
+	*this = result;
+	return result;
 }
 
 megaint megaint::operator/=(const megaint & rhs) {
 	megaint result;
+	result = *this / rhs;
+	*this = result;
 	return result;
 }
 
