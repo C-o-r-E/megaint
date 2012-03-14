@@ -11,8 +11,9 @@ class megaint
 		static const bool DEBUG=false;
 		int val;
 		bool positive;
-		vector<uint8_t> * digits;
-		megaint(const vector<uint8_t> & digs, bool positive);
+		vector<bool> * digits;
+		//megaint(const vector<uint8_t> & digs, bool positive);
+		void normalize();
 	public:
 		megaint();
 		megaint(const megaint & original);
@@ -24,14 +25,18 @@ class megaint
 		megaint operator-=(const megaint & rhs);
 		megaint operator*=(const megaint & rhs);
 		megaint operator/=(const megaint & rhs);
-		const megaint operator+(const megaint & rhs) const;
-		const megaint operator-(const megaint & rhs) const;
-		const megaint operator*(const megaint & rhs) const;
-		const megaint operator/(const megaint & rhs) const;
+		megaint operator+(const megaint & rhs) const;
+		megaint operator-(const megaint & rhs) const;
+		megaint operator*(const megaint & rhs) const;
+		megaint operator/(const megaint & rhs) const;
 		bool operator==(const megaint & other) const;
 		bool operator!=(const megaint & other) const;
+		megaint operator~() const;
 		operator bool() const;
+		bool isEven() const;
+		
 		friend ostream & operator<<(ostream & os, const megaint & mi);
+		friend istream & operator>>(istream & os, megaint & mi);
 };
 
 //ostream & operator<<(ostream & os, const megaint & mi);
