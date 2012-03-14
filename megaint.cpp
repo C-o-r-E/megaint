@@ -275,15 +275,37 @@ megaint megaint::operator+(const megaint & rhs) const {
 //depends on bool()
 megaint megaint::operator-(const megaint & rhs) const {
 	megaint result;
-
+	megaint tmp;
 	if(!rhs)
 	{
 		result = *this;
 		return result;
 	}
 
+	/*
+	  need to make sure that for the complement we have 
+	  a zero padding so the vector sizes are the same.
+	*/
+	cout << "\t ds" << digits->size() << " rhs" << rhs.digits->size() << endl;
+	if(digits->size() > rhs.digits->size())
+	{
+		long diff = digits->size() - rhs.digits->size();
+		cout << "\tdiff=" << diff << endl;
+		for(long i=1; i<diff; ++i)//start at one since tmp has a 0 already
+		{
+			tmp.digits->push_back(0);
+		}
+	  
+	}
+
+	for(unsigned int i=0; i<rhs.digits->size(); ++i)
+	{
+		tmp.digits->push_back(rhs.digits->at(i));
+	}
+		
+
 	//first get the one's complement of the rhs
-	megaint rprime = ~rhs;
+	megaint rprime = ~tmp;
 	
 	//then add
 	result = *this + rprime;
@@ -340,6 +362,14 @@ megaint megaint::operator*(const megaint & rhs) const {
 		//add *this one more time
 		result += *this;
 	}
+
+	//a single negative
+	if( (positive && !rhs.positive) || (!positive && rhs.positive) )
+	{
+		//result negative
+		result.positive = false;
+	}
+	
 
 	if(DEBUG) cout << *this << " * " << rhs << " = " << result << endl;
 
@@ -424,8 +454,8 @@ megaint::operator bool() const {
 }
 
 ostream & operator<<(ostream & os, const megaint & mi) {
-	if(!mi.positive)
-		os << '-';
+//	if(!mi.positive)
+//		os << '-';
 
 	for(unsigned int i=0; i<mi.digits->size(); ++i)
 	{
