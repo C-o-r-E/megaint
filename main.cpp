@@ -19,17 +19,6 @@ int main() {
 
 //	test_streams();
 
-	megaint derp(313);
-
-	megaint herp(312);
-
-	megaint mcgerp;
-
-	mcgerp = (derp ^ derp);
-
-	assert((derp ^ herp) * derp == mcgerp);
-
-
 	return 0;
 }
 
@@ -117,8 +106,6 @@ void test_mult() {
 	megaint h(32);
 	megaint I(1024);
 
-	cout << "h = " << h << endl;
-	cout << "I = " << I << endl;
 	assert(a*b == b);
 	assert(b*c == d);
 	assert(b*e != d);
@@ -142,6 +129,13 @@ void test_exp()
 	megaint u(256);
 	assert((b ^ t) == u);
 
+
+	megaint derp(313);
+	megaint herp(312);
+	megaint mcgerp;
+	mcgerp = (derp ^ derp);
+
+	assert((derp ^ herp) * derp == mcgerp);
 
 }
 
