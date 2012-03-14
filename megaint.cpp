@@ -109,7 +109,7 @@ megaint::megaint(const vector<uint8_t> & digs, bool positive)
 
 megaint::megaint(const string & num) {
 	digits = new vector<bool>;
-	for (int i = num.size(); i >= 0; --i) 
+	for (int i = 0; i != num.size(); ++i)
 	{
 		if(num.at(i) == '1')
 		{
