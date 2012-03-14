@@ -3,16 +3,16 @@
 #include "megaint.h"
 using namespace std;
 
-void test_equality();
 void test_addition();
 void test_subtraction();
 void test_mult();
+void test_division();
 
 int main() {
 	test_addition();
 	test_subtraction();
-	//test_mult();
-	//test_equality();
+	test_mult();
+	test_division();
 	
 	return 0;
 }
@@ -67,10 +67,9 @@ void test_mult() {
 	assert(b*c == d);
 	assert(b*e != d);
 	assert(b*e == g);
-	assert(b*c/b == c);
 }
 
-void test_equality() {
+void test_division() {
 	megaint a(1);
 	megaint b(1);
 	megaint c;

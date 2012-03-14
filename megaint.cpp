@@ -55,7 +55,7 @@ megaint::megaint(const megaint & original)
 }
 
 megaint::megaint(const long l) {
-	if (DEBUG) cout << "constructing megaint from long (" << l << ")" << endl;
+//	if (DEBUG) cout << "constructing megaint from long (" << l << ")" << endl;
 	digits = new vector<bool>;
 
 	positive = l >= 0;
@@ -66,15 +66,15 @@ megaint::megaint(const long l) {
 		return;
 	}
 
-	if(!positive)
-		if (DEBUG) cout << "-" << endl;
+//	if(!positive)
+//		if (DEBUG) cout << "-" << endl;
 	
 	long ul = abs(l);
 	unsigned long bit = 1 << 31;//2147483648; //2^31
 	//at most 32 bits due to being signed long (on 64 bit machines)
 	for(int i=0; i<32; ++i)
 	{
-		if(DEBUG) printf("%ld & %ld  = %ld\n", ul, bit, ul & bit);
+//		if(DEBUG) printf("%ld & %ld  = %ld\n", ul, bit, ul & bit);
 		if(ul & bit)
 		{
 			//
@@ -89,7 +89,7 @@ megaint::megaint(const long l) {
 
 	normalize();
 
-	if(DEBUG) cout << "\t" << *this << endl;
+//	if(DEBUG) cout << "\t" << *this << endl;
 }
 
 /*
@@ -145,6 +145,9 @@ megaint megaint::operator+=(const megaint & rhs) {
 
 megaint megaint::operator-=(const megaint & rhs) {
 	megaint result;
+	result = *this - rhs;
+	if(DEBUG) cout << *this << "-= " << rhs << " = " << result << endl;
+	*this = result;
 	return result;
 }
 
@@ -288,53 +291,59 @@ megaint megaint::operator-(const megaint & rhs) const {
 	//drop the leading one...
 	result.digits->erase(result.digits->begin());
 	
+	result.normalize();
+
 	if(DEBUG) cout << *this << " - " << rhs << " = " << result << endl;
 
 	return result;
 }
 
+//multiplication
+//depends on addition
+//depends on subtraction
 megaint megaint::operator*(const megaint & rhs) const {
-	megaint accum(0);
-/*	stack<bool> result_digits;
-	stack<vector<bool>> result_digits_rows;
-
-	vector<bool>::reverse_iterator i = this->digits->rbegin();
-	vector<bool>::reverse_iterator j = rhs.digits->rbegin();
-	for (; j != rhs.digits->rend(); ++j) {
-		// TODO make this loop through both numbers (right now breaking after first digit)
-		int carry = 0;
-		int power = 1;
-		for (; i != this->digits->rend(); ++i) {
-			int result = carry + (*i) * (*j);
-			int thisdigit = result % 10;
-			if (result >= 10) {
-				carry = result / 10;
-			}
-			else {
-				carry = 0;
-			}
-			result_digits.push(thisdigit);
-		}
-		if (carry) {
-			result_digits.push(carry);
-		}
-		vector<bool> result_digits_vec;
-		while (result_digits.size() != 0) {
-			result_digits_vec.push_back(result_digits.top());
-			result_digits.pop();
-		}
-		result_digits_rows.push(result_digits_vec);
-		break; // FIXME see TODO above
+	megaint result;
+	if(!rhs)
+	{
+		// mult by 0
+		return result;
 	}
-	while (result_digits_rows.size() != 0) {
-		vector<bool> digs = result_digits_rows.top();
-		result_digits_rows.pop();
-		megaint new_row(digs, true);
-		accum = accum + new_row;
-	}
-*/
-	return accum;
 
+	if(rhs.digits->size() == 1 && rhs.digits->at(0))
+	{
+		//mult by 1
+		result = *this;
+		return result;
+	}
+
+	megaint tmp = rhs;
+	result = *this;
+
+	if(rhs.isEven() == false)
+	{
+		megaint one(1);
+		tmp -= one;
+	}
+	
+	megaint two(2);
+
+	while(tmp)
+	{
+		cout << "tmp0:" << tmp << endl;
+		result.digits->push_back(0);
+		tmp -= 2;
+		cout << "tmp1:" << tmp << endl;
+	}
+
+	if(rhs.isEven() == false)
+	{
+		//add *this one more time
+		result += *this;
+	}
+
+	if(DEBUG) cout << *this << " * " << rhs << " = " << result << endl;
+
+	return result;
 }
 
 megaint megaint::operator/(const megaint & rhs) const {
@@ -425,4 +434,20 @@ ostream & operator<<(ostream & os, const megaint & mi) {
 	}
 	
 	return os;
+}
+
+bool megaint::isEven() const {
+	//just need to check if the lowest bit is set
+	bool result;
+	if(digits->back())
+	{
+		result = false;
+	}
+	else
+	{
+		result = true;
+	}
+	
+	if(DEBUG) cout << *this << " isEven == " << result << endl;
+	return result;
 }

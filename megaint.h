@@ -33,6 +33,7 @@ class megaint
 		bool operator!=(const megaint & other) const;
 		megaint operator~() const;
 		operator bool() const;
+		bool isEven() const;
 		
 		friend ostream & operator<<(ostream & os, const megaint & mi);
 };
