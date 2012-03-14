@@ -99,13 +99,20 @@ void test_mult() {
 	megaint f(0);
 	megaint g(-6);
 
+	megaint four(4);
+	megaint five(5);
+	megaint twenty(20);
+
 	megaint h(32);
 	megaint I(1024);
 
+	cout << "h = " << h << endl;
+	cout << "I = " << I << endl;
 	assert(a*b == b);
 	assert(b*c == d);
 	assert(b*e != d);
 	assert(b*e == g);
+	assert(four*five == twenty);
 	assert(h*h == I);
 }
 

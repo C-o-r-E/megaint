@@ -331,6 +331,7 @@ megaint megaint::operator-(const megaint & rhs) const {
 //depends on addition
 //depends on subtraction
 megaint megaint::operator*(const megaint & rhs) const {
+	cout << "mul " << *this << "*" << rhs << endl;
 	megaint result;
 	if(!rhs)
 	{
@@ -352,12 +353,14 @@ megaint megaint::operator*(const megaint & rhs) const {
 	{
 		megaint one(1);
 		tmp -= one;
+		//we add *this to result later...
 	}
 	
 	megaint two(2);
 
 	while(tmp)
 	{
+		cout << "\tleft shift tmp = " << tmp << endl;
 		result.digits->push_back(0);
 		tmp -= 2;
 	}
