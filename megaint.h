@@ -8,7 +8,7 @@
 using namespace std;
 class megaint
 {
-		static const bool DEBUG=true;
+		static const bool DEBUG=false;
 		int val;
 		bool positive;
 		vector<bool> * digits;

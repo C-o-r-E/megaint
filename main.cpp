@@ -7,14 +7,33 @@ void test_addition();
 void test_subtraction();
 void test_mult();
 void test_division();
+void test_x_equals_ops();
 
 int main() {
+	test_x_equals_ops();
 	test_addition();
 	test_subtraction();
 	test_mult();
 	test_division();
 	
 	return 0;
+}
+
+// *=, -=, +=, /=
+void test_x_equals_ops() {
+	megaint a(34234);
+	long bla = 34234 + 343;
+	megaint b(bla);
+	megaint c(343);
+
+	assert(a + c == b);
+	a += c;
+	assert(a == b);
+
+	megaint d(0);
+	d += 1;
+	megaint e(1);
+	assert(d == e);
 }
 
 void test_addition() {

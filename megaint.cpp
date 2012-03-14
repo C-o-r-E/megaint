@@ -69,8 +69,12 @@ megaint::megaint(const long l) {
 //	if(!positive)
 //		if (DEBUG) cout << "-" << endl;
 	
-	long ul = abs(l);
-	unsigned long bit = 1 << 31;//2147483648; //2^31
+	unsigned long ul = abs(l);
+
+	// int(1 << 31) becomes wacky after conversion to unsigned long,
+	// so start with an unsigned long and shift 31.
+	unsigned long bit = (unsigned long)1 << 31;//2147483648; //2^31
+
 	//at most 32 bits due to being signed long (on 64 bit machines)
 	for(int i=0; i<32; ++i)
 	{
