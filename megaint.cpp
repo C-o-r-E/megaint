@@ -140,12 +140,6 @@ megaint::~megaint() {
 	delete digits;
 }
 
-megaint megaint::absoluteValue(){
-	megaint copy(*this);
-	copy.positive = true;
-	return copy;
-}
-
 megaint megaint::operator+=(const megaint & rhs) {
 	megaint result;
 	result = *this + rhs;
