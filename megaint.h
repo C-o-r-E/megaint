@@ -36,6 +36,7 @@ class megaint
 		bool isEven() const;
 		
 		friend ostream & operator<<(ostream & os, const megaint & mi);
+		friend istream & operator>>(istream & os, megaint & mi);
 };
 
 //ostream & operator<<(ostream & os, const megaint & mi);
