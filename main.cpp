@@ -8,6 +8,7 @@ void test_subtraction();
 void test_mult();
 void test_exp();
 void test_x_equals_ops();
+void test_streams();
 
 int main() {
 	test_x_equals_ops();
@@ -15,6 +16,9 @@ int main() {
 	test_subtraction();
 	test_mult();
 	test_exp();
+
+	test_streams();
+
 	return 0;
 }
 
@@ -100,7 +104,6 @@ void test_mult() {
 	assert(b*e == g);
 }
 
-
 void test_exp()
 {
 	cout << "test_exp()" << endl;
@@ -116,3 +119,13 @@ void test_exp()
 
 	cout << (big ^ big) << endl;
 }
+
+void test_streams() {
+	cout << "Sorry to ruin your snappy test run!" << endl;
+	cout << "Please enter a number: ";
+	megaint a;
+	cin >> a;
+	cout << "Is this your number?" << endl;
+	cout << a << endl;
+}
+

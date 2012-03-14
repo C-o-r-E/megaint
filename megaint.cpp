@@ -471,6 +471,14 @@ ostream & operator<<(ostream & os, const megaint & mi) {
 	return os;
 }
 
+istream & operator>>(istream & is, megaint & mi) {
+	string num;
+	is >> num;
+	megaint n(num);
+	mi = n;
+	return is;
+}
+
 bool megaint::isEven() const {
 	//just need to check if the lowest bit is set
 	bool result;
