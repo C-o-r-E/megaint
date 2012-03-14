@@ -6,7 +6,6 @@ using namespace std;
 void test_addition();
 void test_subtraction();
 void test_mult();
-void test_division();
 void test_x_equals_ops();
 
 int main() {
@@ -14,7 +13,6 @@ int main() {
 	test_addition();
 	test_subtraction();
 	test_mult();
-	test_division();
 	
 	return 0;
 }
@@ -101,16 +99,3 @@ void test_mult() {
 	assert(b*e == g);
 }
 
-void test_division() {
-	cout << "test_division()" << endl;
-	megaint a(1);
-	megaint b(1);
-	megaint c;
-	megaint e(10);
-	megaint f(100);
-	//c = c + e;
-	//c = c + f; these are broken
-	megaint d(110);
-	//assert(a == b);
-	//assert(c == d);
-}
