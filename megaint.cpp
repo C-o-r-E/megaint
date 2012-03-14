@@ -381,9 +381,37 @@ megaint megaint::operator*(const megaint & rhs) const {
 	return result;
 }
 
-megaint megaint::operator/(const megaint & rhs) const {
-	megaint result = *this;
-	result /= rhs;
+megaint megaint::operator^(const megaint & rhs) const {
+	megaint result;
+	megaint one(1);
+
+	if(!rhs)// x ^ 0 = 1
+	{
+		cout << *this << "^" << rhs << " = " << one << endl;
+		return one;
+	}
+	if(rhs.digits->size() == 1 && rhs.digits->at(0))// x ^ 1 = x
+	{
+		cout << *this << "^" << rhs << " = " << *this << endl;
+		return *this;
+	}
+
+	if(rhs.isEven())//even exponent
+	{
+		megaint half_rhs = rhs;
+		half_rhs.digits->pop_back();//divide by two (bitshift)
+		
+		result = (*this * *this) ^ half_rhs;
+	}
+	else
+	{
+		megaint rhs_minus_one = rhs;
+		rhs_minus_one -= one;
+
+		result = (*this ^ rhs_minus_one) * *this;
+	}
+
+	cout << *this << "^" << rhs << " = " << result << endl;
 	return result;
 }
 

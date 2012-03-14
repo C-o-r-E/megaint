@@ -17,7 +17,7 @@ int main() {
 	test_mult();
 	test_exp();
 
-	test_streams();
+//	test_streams();
 
 	return 0;
 }
