@@ -8,6 +8,7 @@
 #include <cstdio>
 using namespace std;
 
+//this function removes leading 0s
 void megaint::normalize()
 {
 	vector<bool> * tmp =  new vector<bool>;

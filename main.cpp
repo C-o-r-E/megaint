@@ -6,6 +6,7 @@ using namespace std;
 void test_addition();
 void test_subtraction();
 void test_mult();
+void test_exp();
 void test_x_equals_ops();
 
 int main() {
@@ -13,7 +14,7 @@ int main() {
 	test_addition();
 	test_subtraction();
 	test_mult();
-	
+	test_exp();
 	return 0;
 }
 
@@ -99,3 +100,19 @@ void test_mult() {
 	assert(b*e == g);
 }
 
+
+void test_exp()
+{
+	cout << "test_exp()" << endl;
+	megaint a(1);
+	megaint b(2);
+	megaint c(4);
+
+	assert(a ^ b == a);
+	assert(b ^ a == b);
+	assert(b ^ b == c);
+
+	megaint big(313);
+
+	cout << (big ^ big) << endl;
+}
