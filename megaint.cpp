@@ -329,9 +329,8 @@ megaint megaint::operator-(const megaint & rhs) const {
 
 //multiplication
 //depends on addition
-//depends on subtraction
 megaint megaint::operator*(const megaint & rhs) const {
-	cout << "mul " << *this << "*" << rhs << endl;
+	//if(DEBUG) cout << "mul " << *this << "*" << rhs << endl;
 	megaint result;
 	if(!rhs)
 	{
@@ -346,30 +345,20 @@ megaint megaint::operator*(const megaint & rhs) const {
 		return result;
 	}
 
-	megaint tmp = rhs;
-	result = *this;
-
-	if(rhs.isEven() == false)
-	{
-		megaint one(1);
-		tmp -= one;
-		//we add *this to result later...
-	}
+	megaint tmp = *this;
 	
-	megaint two(2);
-
-	while(tmp)
+	for(vector<bool>::reverse_iterator ri=rhs.digits->rbegin(); ri<rhs.digits->rend(); ++ri)
 	{
-		cout << "\tleft shift tmp = " << tmp << endl;
-		result.digits->push_back(0);
-		tmp -= 2;
+		if(*ri)
+		{
+			result += tmp;
+		}
+
+		//shift left (*2)
+		tmp.digits->push_back(0);
 	}
 
-	if(rhs.isEven() == false)
-	{
-		//add *this one more time
-		result += *this;
-	}
+
 
 	//a single negative
 	if( (positive && !rhs.positive) || (!positive && rhs.positive) )
@@ -390,12 +379,10 @@ megaint megaint::operator^(const megaint & rhs) const {
 
 	if(!rhs)// x ^ 0 = 1
 	{
-		cout << *this << "^" << rhs << " = " << one << endl;
 		return one;
 	}
 	if(rhs.digits->size() == 1 && rhs.digits->at(0))// x ^ 1 = x
 	{
-		cout << *this << "^" << rhs << " = " << *this << endl;
 		return *this;
 	}
 
@@ -405,7 +392,6 @@ megaint megaint::operator^(const megaint & rhs) const {
 		half_rhs.digits->pop_back();//divide by two (bitshift)
 		
 		megaint squared (*this * *this);
-		cout << "\t " << *this << " * " << *this << " = " << squared << endl;
 		
 		result = squared ^ half_rhs;
 	}
@@ -417,7 +403,7 @@ megaint megaint::operator^(const megaint & rhs) const {
 		result = (*this ^ rhs_minus_one) * *this;
 	}
 
-	cout << *this << "^" << rhs << " = " << result << endl;
+	if(DEBUG) cout << *this << "^" << rhs << " = " << result << endl;
 	return result;
 }
 

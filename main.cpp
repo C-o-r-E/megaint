@@ -19,6 +19,17 @@ int main() {
 
 //	test_streams();
 
+	megaint derp(313);
+
+	megaint herp(312);
+
+	megaint mcgerp;
+
+	mcgerp = (derp ^ derp);
+
+	assert((derp ^ herp) * derp == mcgerp);
+
+
 	return 0;
 }
 
