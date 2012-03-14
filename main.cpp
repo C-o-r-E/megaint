@@ -98,10 +98,15 @@ void test_mult() {
 	megaint e(-3);
 	megaint f(0);
 	megaint g(-6);
+
+	megaint h(32);
+	megaint I(1024);
+
 	assert(a*b == b);
 	assert(b*c == d);
 	assert(b*e != d);
 	assert(b*e == g);
+	assert(h*h == I);
 }
 
 void test_exp()
@@ -111,13 +116,15 @@ void test_exp()
 	megaint b(2);
 	megaint c(4);
 
-	assert(a ^ b == a);
-	assert(b ^ a == b);
-	assert(b ^ b == c);
+	assert((a ^ b) == a);
+	assert((b ^ a) == b);
+	assert((b ^ b) == c);
 
-	megaint big(313);
+	megaint t(8);
+	megaint u(256);
+	assert((b ^ t) == u);
 
-	cout << (big ^ big) << endl;
+
 }
 
 void test_streams() {

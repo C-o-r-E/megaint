@@ -401,7 +401,10 @@ megaint megaint::operator^(const megaint & rhs) const {
 		megaint half_rhs = rhs;
 		half_rhs.digits->pop_back();//divide by two (bitshift)
 		
-		result = (*this * *this) ^ half_rhs;
+		megaint squared (*this * *this);
+		cout << "\t " << *this << " * " << *this << " = " << squared << endl;
+		
+		result = squared ^ half_rhs;
 	}
 	else
 	{
