@@ -109,7 +109,7 @@ megaint::megaint(const vector<uint8_t> & digs, bool positive)
 
 megaint::megaint(const string & num) {
 	digits = new vector<bool>;
-	for (int i = num.size(); i >= 0; --i) 
+	for (int i = 0; i != num.size(); ++i) 
 	{
 		if(num.at(i) == '1')
 		{
@@ -122,6 +122,7 @@ megaint::megaint(const string & num) {
 		else
 			continue;
 	}
+	normalize();
 }
 
 megaint & megaint::operator=(const megaint & rhs) {
@@ -482,7 +483,7 @@ ostream & operator<<(ostream & os, const megaint & mi) {
 //	if(!mi.positive)
 //		os << '-';
 
-	for(unsigned int i=0; i<mi.digits->size(); ++i)
+	for(int i=0; i!=mi.digits->size(); ++i)
 	{
 		
 		os << (unsigned int)mi.digits->at(i);

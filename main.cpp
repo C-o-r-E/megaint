@@ -19,7 +19,7 @@ int main() {
 	test_mult();
 	test_exp();
 
-//	test_streams();
+	test_streams();
 
 	return 0;
 }
@@ -152,6 +152,12 @@ void test_exp()
 }
 
 void test_streams() {
+	megaint _a(1);
+	megaint _b(5);
+	megaint _c(10);
+	cout << _a << endl;
+	cout << _b << endl;
+	cout << _c << endl;
 	cout << "Sorry to ruin your snappy test run!" << endl;
 	cout << "Please enter a number: ";
 	megaint a;
