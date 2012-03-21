@@ -9,8 +9,10 @@ void test_mult();
 void test_exp();
 void test_x_equals_ops();
 void test_streams();
+void test_lt();
 
 int main() {
+	test_lt();
 	test_x_equals_ops();
 	test_addition();
 	test_subtraction();
@@ -20,6 +22,15 @@ int main() {
 //	test_streams();
 
 	return 0;
+}
+
+void test_lt() {
+	megaint a(101);
+	megaint b(102);
+	assert(a < b);
+	assert(a <= a);
+	assert(a <= b);
+	assert(!(a < a));
 }
 
 // *=, -=, +=, /=

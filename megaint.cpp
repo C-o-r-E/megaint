@@ -514,3 +514,45 @@ bool megaint::isEven() const {
 	if(DEBUG) cout << *this << " isEven == " << result << endl;
 	return result;
 }
+
+bool megaint::operator<(const megaint & rhs) {
+	if (this->digits->size() < rhs.digits->size()) {
+		return true;
+	}
+	else if (this->digits->size() > rhs.digits->size()) {
+		return false;
+	}
+	else {
+		for(unsigned int i=0; i<digits->size(); ++i)
+		{
+			if (digits->at(i) < rhs.digits->at(i)) {
+				return true;
+			}
+			else if (digits->at(i) > rhs.digits->at(i)) {
+				return false;
+			}
+		}
+		return false;
+	}
+}
+
+bool megaint::operator<=(const megaint & rhs) {
+	if (this->digits->size() < rhs.digits->size()) {
+		return true;
+	}
+	else if (this->digits->size() > rhs.digits->size()) {
+		return false;
+	}
+	else {
+		for(unsigned int i=0; i<digits->size(); ++i)
+		{
+			if (digits->at(i) < rhs.digits->at(i)) {
+				return true;
+			}
+			else if (digits->at(i) > rhs.digits->at(i)) {
+				return false;
+			}
+		}
+		return true;
+	}
+}
