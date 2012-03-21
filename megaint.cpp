@@ -556,3 +556,11 @@ bool megaint::operator<=(const megaint & rhs) {
 		return true;
 	}
 }
+
+bool megaint::operator>(const megaint & rhs) {
+	return !(*this <= rhs);
+}
+
+bool megaint::operator>=(const megaint & rhs) {
+	return !(*this < rhs);
+}

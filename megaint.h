@@ -21,6 +21,8 @@ class megaint
 		megaint(const string & num);
 		~megaint();
 		bool operator<(const megaint & rhs);
+		bool operator>(const megaint & rhs);
+		bool operator>=(const megaint & rhs);
 		bool operator<=(const megaint & rhs);
 		megaint & operator=(const megaint & rhs);
 		megaint operator+=(const megaint & rhs);

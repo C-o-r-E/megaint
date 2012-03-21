@@ -31,6 +31,7 @@ void test_lt() {
 	assert(a <= a);
 	assert(a <= b);
 	assert(!(a < a));
+	assert(!(a > a));
 }
 
 // *=, -=, +=, /=
